@@ -24,9 +24,6 @@ repositories {
 	mavenCentral()
 }
 
-war {
-    archiveName 'crud.war'
-}
 
 
 dependencies {
