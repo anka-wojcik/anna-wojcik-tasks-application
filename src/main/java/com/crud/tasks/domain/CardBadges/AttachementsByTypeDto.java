@@ -1,5 +1,4 @@
-package com.crud.tasks.domain;
-
+package com.crud.tasks.domain.CardBadges;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,19 +10,12 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TrelloBoardDto {
+public class AttachementsByTypeDto {
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("trello")
+    private TrelloDto trello;
 
-    @JsonProperty("id")
-    private String id;
-
-    @JsonProperty("lists")
-    private List<TrelloListDto> lists;
-
-    public TrelloBoardDto(){
+    public AttachementsByTypeDto() {
         super();
     }
-
 }
