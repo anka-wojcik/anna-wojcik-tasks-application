@@ -10,12 +10,12 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AttachementsByTypeDto {
+public class AttachmentsByTypeDto {
 
     @JsonProperty("trello")
     private TrelloDto trello;
 
-    public AttachementsByTypeDto() {
+    public AttachmentsByTypeDto() {
         super();
     }
 }
