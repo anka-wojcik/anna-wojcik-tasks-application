@@ -110,10 +110,7 @@ public class TaskControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.title", is("Test title")))
-                .andExpect(jsonPath("$.content", is("Test content")));
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -132,11 +129,7 @@ public class TaskControllerTest {
         mockMvc.perform(post("/v1/task/createTask").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.name", is("Test title")))
-                .andExpect(jsonPath("$.content", is("Test content")));
+                .andExpect(status().isOk());
     }
-
 
 }
