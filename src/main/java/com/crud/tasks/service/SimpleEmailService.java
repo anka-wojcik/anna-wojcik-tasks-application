@@ -24,23 +24,38 @@ public class SimpleEmailService {
     @Autowired
     private MailCreatorService mailCreatorService;
 
-    public void send(final Mail mail) {
+    public void send(final Mail mail, MailMessageType mailMessageType) {
         LOGGER.info("Starting email preparation...");
        try{
-           javaMailSender.send(createMimeMessage(mail));
+           if (mailMessageType.equals(MailMessageType.CREATED_NEW_CARD_EMAIL)) {
+               javaMailSender.send(createMimeMessage(mail, MailMessageType.CREATED_NEW_CARD_EMAIL));
+           } else {
+               javaMailSender.send(createMimeMessage(mail, MailMessageType.SCHEDULED_EMAIL));
+           }
            LOGGER.info("Email has been sent.");
        } catch (MailException e) {
            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
        }
     }
 
-    private MimeMessagePreparator createMimeMessage(final Mail mail) {
+    private MimeMessagePreparator createMimeMessage(final Mail mail, MailMessageType mailMessageType) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            messageHelper.setText(chooseMessageTemplate(mail.getMessage(), mailMessageType), true);
         };
+    }
+
+    private String chooseMessageTemplate(String message, MailMessageType mailMessageType) {
+        switch (mailMessageType) {
+            case CREATED_NEW_CARD_EMAIL:
+                return mailCreatorService.buildTrelloCardEmail(message);
+            case SCHEDULED_EMAIL:
+                return mailCreatorService.buildScheduledEmail(message);
+                default:
+                    return message;
+        }
     }
 
     private SimpleMailMessage createMailMessage(Mail mail) {

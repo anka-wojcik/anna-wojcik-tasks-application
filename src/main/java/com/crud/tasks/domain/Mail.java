@@ -1,5 +1,6 @@
 package com.crud.tasks.domain;
 
+import com.crud.tasks.service.MailMessageType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
