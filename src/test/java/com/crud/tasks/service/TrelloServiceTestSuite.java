@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -58,7 +59,7 @@ public class TrelloServiceTestSuite {
         assertEquals("1", newCard.getId());
         assertEquals("Card no. 1", newCard.getName());
         assertEquals("https://testing.com", newCard.getShortUrl());
-        verify(emailService, times(1)).send(any(Mail.class));
+        verify(emailService, times(1)).send(any(Mail.class), eq(MailMessageType.CREATED_NEW_CARD_EMAIL));
     }
 
 }
